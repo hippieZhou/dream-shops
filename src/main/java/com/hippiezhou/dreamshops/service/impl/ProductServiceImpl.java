@@ -126,7 +126,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ProductDto convertToDTO(Product product) {
-        List<Image> images = imageRepository.FindByProductId(product.getId());
+        List<Image> images = imageRepository.findByProductId(product.getId());
         List<ImageDto> imageDtos = images.stream().map(image -> new ImageDto(image.getId(), image.getFileName(), image.getDownloadUrl())).toList();
         return new ProductDto(product.getId(), product.getName(), product.getBrand(), product.getPrice(), product.getInventory(), product.getDescription(),
             product.getCategory(), imageDtos);
