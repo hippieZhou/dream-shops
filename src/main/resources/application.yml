@@ -32,3 +32,8 @@ api:
     name: Dream Shops
     url: http://www.dreamshops.com
     email:
+
+auth:
+  token:
+    jwtSecret: 86400000asdasqweqweasadqwedfiojjlpiopjm
+    jwtExpirationMs: 3600000
