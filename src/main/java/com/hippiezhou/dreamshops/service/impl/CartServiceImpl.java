@@ -2,6 +2,7 @@ package com.hippiezhou.dreamshops.service.impl;
 
 import com.hippiezhou.dreamshops.exception.ResourceNotFoundException;
 import com.hippiezhou.dreamshops.model.Cart;
+import com.hippiezhou.dreamshops.model.User;
 import com.hippiezhou.dreamshops.repository.CartItemRepository;
 import com.hippiezhou.dreamshops.repository.CartRepository;
 import com.hippiezhou.dreamshops.service.CartService;
@@ -10,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.Optional;
 import java.util.concurrent.atomic.AtomicLong;
 
 @Service
@@ -42,11 +44,15 @@ public class CartServiceImpl implements CartService {
         return cart.getTotalAmount();
     }
 
-    public Long initializedNewCart() {
-        Long cartId = cartIdGenerator.incrementAndGet();
-        Cart newCart = new Cart();
-        newCart.setId(cartId);
-        return cartRepository.save(newCart).getId();
+    @Override
+    public Cart initializedNewCart(User user) {
+        return Optional.ofNullable(getCartByUserId(user.getId()))
+            .orElseGet(() -> {
+                ;
+                Cart cart = new Cart();
+                cart.setUser(user);
+                return cartRepository.save(cart);
+            });
     }
 
     @Override

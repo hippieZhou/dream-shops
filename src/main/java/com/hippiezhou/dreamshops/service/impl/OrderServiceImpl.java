@@ -29,7 +29,7 @@ public class OrderServiceImpl implements OrderService {
     private final ModelMapper modelMapper;
 
     @Override
-    public OrderDto placeOrder(Long userId) {
+    public Order placeOrder(Long userId) {
         Cart cart = cartService.getCartByUserId(userId);
 
         Order order = createOrder(cart);
@@ -41,7 +41,7 @@ public class OrderServiceImpl implements OrderService {
         Order savedOrder = orderRepository.save(order);
         cartService.clearCart(cart.getId());
 
-        return convertToDto(savedOrder);
+        return savedOrder;
     }
 
     private Order createOrder(Cart cart) {
@@ -83,7 +83,8 @@ public class OrderServiceImpl implements OrderService {
         return orderRepository.findByUserId(userId).stream().map(this::convertToDto).toList();
     }
 
-    private OrderDto convertToDto(Order order) {
+    @Override
+    public OrderDto convertToDto(Order order) {
         return modelMapper.map(order, OrderDto.class);
     }
 }

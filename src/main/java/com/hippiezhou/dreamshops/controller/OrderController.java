@@ -1,6 +1,8 @@
 package com.hippiezhou.dreamshops.controller;
 
+import com.hippiezhou.dreamshops.dto.OrderDto;
 import com.hippiezhou.dreamshops.exception.ResourceNotFoundException;
+import com.hippiezhou.dreamshops.model.Order;
 import com.hippiezhou.dreamshops.response.ApiResponse;
 import com.hippiezhou.dreamshops.service.OrderService;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +19,9 @@ public class OrderController {
     @PostMapping("/order")
     public ResponseEntity<ApiResponse> createOrder(Long userId) {
         try {
-            return ResponseEntity.ok(new ApiResponse("Order created successfully", orderService.placeOrder(userId)));
+            Order order = orderService.placeOrder(userId);
+            OrderDto orderDto = orderService.convertToDto(order);
+            return ResponseEntity.ok(new ApiResponse("Order created successfully", orderDto));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ApiResponse(e.getMessage(), null));
         }

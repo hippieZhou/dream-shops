@@ -1,6 +1,7 @@
 package com.hippiezhou.dreamshops.controller;
 
 import com.hippiezhou.dreamshops.dto.ProductDto;
+import com.hippiezhou.dreamshops.exception.ResourceAlreadyExistsException;
 import com.hippiezhou.dreamshops.exception.ResourceNotFoundException;
 import com.hippiezhou.dreamshops.model.Product;
 import com.hippiezhou.dreamshops.request.ProductAddRequest;
@@ -28,7 +29,11 @@ public class ProductController {
     @PostMapping("/add")
     public ResponseEntity<ApiResponse> addProduct(@RequestBody ProductAddRequest product) {
         try {
-            return ResponseEntity.ok(new ApiResponse("Product added successfully", productService.addProduct(product)));
+            Product newProduct = productService.addProduct(product);
+            ProductDto productDto = productService.convertToDto(newProduct);
+            return ResponseEntity.ok(new ApiResponse("Product added successfully", productDto));
+        } catch (ResourceAlreadyExistsException e) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(new ApiResponse(e.getMessage(), null));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ApiResponse(e.getMessage(), null));
         }

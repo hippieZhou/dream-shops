@@ -2,6 +2,7 @@ package com.hippiezhou.dreamshops.service.impl;
 
 import com.hippiezhou.dreamshops.dto.ImageDto;
 import com.hippiezhou.dreamshops.dto.ProductDto;
+import com.hippiezhou.dreamshops.exception.ResourceAlreadyExistsException;
 import com.hippiezhou.dreamshops.exception.ResourceNotFoundException;
 import com.hippiezhou.dreamshops.model.Category;
 import com.hippiezhou.dreamshops.model.Image;
@@ -32,10 +33,17 @@ public class ProductServiceImpl implements ProductService {
         // if no, create a new category and set it as the new request's category
         // save the new request to the database
         // return the new request
+        if (productExists(request.getBrand(), request.getName())) {
+            throw new ResourceAlreadyExistsException("Product already exists :" + request.getBrand() + " " + request.getName() + ", you can update it instead");
+        }
         Category category = Optional.ofNullable(categoryRepository.findByName(request.getCategory().getName()))
             .orElseGet(() -> categoryRepository.save(new Category(request.getCategory().getName())));
         request.setCategory(category);
         return productRepository.save(createProduct(request, category));
+    }
+
+    private boolean productExists(String name, String brand) {
+        return productRepository.existsByNameAndBrand(name, brand);
     }
 
     private Product createProduct(ProductAddRequest request, Category category) {
@@ -121,11 +129,11 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<ProductDto> getConvertedProducts(List<Product> products) {
-        return products.stream().map(this::convertToDTO).toList();
+        return products.stream().map(this::convertToDto).toList();
     }
 
     @Override
-    public ProductDto convertToDTO(Product product) {
+    public ProductDto convertToDto(Product product) {
         List<Image> images = imageRepository.findByProductId(product.getId());
         List<ImageDto> imageDtos = images.stream().map(image -> new ImageDto(image.getId(), image.getFileName(), image.getDownloadUrl())).toList();
         return new ProductDto(product.getId(), product.getName(), product.getBrand(), product.getPrice(), product.getInventory(), product.getDescription(),
