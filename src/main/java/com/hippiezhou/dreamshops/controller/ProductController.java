@@ -8,13 +8,11 @@ import com.hippiezhou.dreamshops.request.ProductUpdateRequest;
 import com.hippiezhou.dreamshops.response.ApiResponse;
 import com.hippiezhou.dreamshops.service.ProductService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
-import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
-import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 @RestController
 @RequestMapping("${api.prefix}/products")
@@ -32,7 +30,7 @@ public class ProductController {
         try {
             return ResponseEntity.ok(new ApiResponse("Product added successfully", productService.addProduct(product)));
         } catch (Exception e) {
-            return ResponseEntity.status(INTERNAL_SERVER_ERROR).body(new ApiResponse("Failed to add product", e.getMessage()));
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ApiResponse(e.getMessage(), null));
         }
     }
 
@@ -41,9 +39,9 @@ public class ProductController {
         try {
             return ResponseEntity.ok(new ApiResponse("Product fetched successfully", productService.getProductById(productId)));
         } catch (ResourceNotFoundException e) {
-            return ResponseEntity.status(NOT_FOUND).body(new ApiResponse(e.getMessage(), null));
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse(e.getMessage(), null));
         } catch (Exception e) {
-            return ResponseEntity.status(INTERNAL_SERVER_ERROR).body(new ApiResponse("Failed to fetch product", e.getMessage()));
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ApiResponse(e.getMessage(), null));
         }
     }
 
@@ -55,11 +53,11 @@ public class ProductController {
                 return ResponseEntity.ok(new ApiResponse("Product updated successfully", productService.updateProduct(request, product)));
             }
         } catch (ResourceNotFoundException e) {
-            return ResponseEntity.status(NOT_FOUND).body(new ApiResponse(e.getMessage(), null));
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse(e.getMessage(), null));
         } catch (Exception e) {
-            return ResponseEntity.status(INTERNAL_SERVER_ERROR).body(new ApiResponse("Failed to update product", e.getMessage()));
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ApiResponse(e.getMessage(), null));
         }
-        return ResponseEntity.status(INTERNAL_SERVER_ERROR).body(new ApiResponse("Failed to update product", INTERNAL_SERVER_ERROR));
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ApiResponse("Failed to update product", null));
     }
 
     @DeleteMapping("/product/{productId}/product")
@@ -68,9 +66,9 @@ public class ProductController {
             productService.deleteProductById(productId);
             return ResponseEntity.ok(new ApiResponse("Product deleted successfully", null));
         } catch (ResourceNotFoundException e) {
-            return ResponseEntity.status(NOT_FOUND).body(new ApiResponse(e.getMessage(), null));
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse(e.getMessage(), null));
         } catch (Exception e) {
-            return ResponseEntity.status(INTERNAL_SERVER_ERROR).body(new ApiResponse("Failed to delete product", e.getMessage()));
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ApiResponse("Failed to delete product", e.getMessage()));
         }
     }
 
@@ -79,14 +77,14 @@ public class ProductController {
         try {
             List<Product> products = productService.getProductByBrandAndName(brandName, productName);
             if (products.isEmpty()) {
-                return ResponseEntity.status(NOT_FOUND).body(new ApiResponse("No product found", null));
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse("No product found", null));
             }
             List<ProductDto> convertedProducts = productService.getConvertedProducts(products);
             return ResponseEntity.ok(new ApiResponse("Product fetched successfully", convertedProducts));
         } catch (ResourceNotFoundException e) {
-            return ResponseEntity.status(NOT_FOUND).body(new ApiResponse(e.getMessage(), null));
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse(e.getMessage(), null));
         } catch (Exception e) {
-            return ResponseEntity.status(INTERNAL_SERVER_ERROR).body(new ApiResponse("Failed to fetch product", e.getMessage()));
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ApiResponse(e.getMessage(), null));
         }
     }
 
@@ -96,13 +94,13 @@ public class ProductController {
         try {
             List<Product> products = productService.getProductByName(name);
             if (products.isEmpty()) {
-                return ResponseEntity.status(NOT_FOUND).body(new ApiResponse("No product found", null));
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse("No product found", null));
             }
             return ResponseEntity.ok(new ApiResponse("Product fetched successfully", products));
         } catch (ResourceNotFoundException e) {
-            return ResponseEntity.status(NOT_FOUND).body(new ApiResponse(e.getMessage(), null));
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse(e.getMessage(), null));
         } catch (Exception e) {
-            return ResponseEntity.status(INTERNAL_SERVER_ERROR).body(new ApiResponse("Failed to fetch product", e.getMessage()));
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ApiResponse(e.getMessage(), null));
         }
     }
 
@@ -111,13 +109,13 @@ public class ProductController {
         try {
             List<Product> products = productService.getProductsByBrand(brand);
             if (products.isEmpty()) {
-                return ResponseEntity.status(NOT_FOUND).body(new ApiResponse("No product found", null));
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse("No product found", null));
             }
             return ResponseEntity.ok(new ApiResponse("Product fetched successfully", products));
         } catch (ResourceNotFoundException e) {
-            return ResponseEntity.status(NOT_FOUND).body(new ApiResponse(e.getMessage(), null));
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse(e.getMessage(), null));
         } catch (Exception e) {
-            return ResponseEntity.status(INTERNAL_SERVER_ERROR).body(new ApiResponse("Failed to fetch product", e.getMessage()));
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ApiResponse(e.getMessage(), null));
         }
     }
 
@@ -126,13 +124,13 @@ public class ProductController {
         try {
             List<Product> products = productService.getProductsByCategory(category);
             if (products.isEmpty()) {
-                return ResponseEntity.status(NOT_FOUND).body(new ApiResponse("No product found", null));
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse("No product found", null));
             }
             return ResponseEntity.ok(new ApiResponse("Product fetched successfully", products));
         } catch (ResourceNotFoundException e) {
-            return ResponseEntity.status(NOT_FOUND).body(new ApiResponse(e.getMessage(), null));
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse(e.getMessage(), null));
         } catch (Exception e) {
-            return ResponseEntity.status(INTERNAL_SERVER_ERROR).body(new ApiResponse("Failed to fetch product", e.getMessage()));
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ApiResponse(e.getMessage(), null));
         }
     }
 

@@ -1,6 +1,6 @@
 package com.hippiezhou.dreamshops.service.impl;
 
-import com.hippiezhou.dreamshops.exception.CategoryAlreadyExistException;
+import com.hippiezhou.dreamshops.exception.ResourceAlreadyExistsException;
 import com.hippiezhou.dreamshops.exception.ResourceNotFoundException;
 import com.hippiezhou.dreamshops.model.Category;
 import com.hippiezhou.dreamshops.repository.CategoryRepository;
@@ -35,7 +35,7 @@ public class CategoryServiceImpl implements CategoryService {
     public Category addCategory(Category request) {
         return Optional.of(request).filter(c -> !categoryRepository.existsByName(c.getName()))
             .map(categoryRepository::save)
-            .orElseThrow(() -> new CategoryAlreadyExistException(request.getName()));
+            .orElseThrow(() -> new ResourceAlreadyExistsException("Oops! Category with name " + request.getName() + " already exists"));
     }
 
     @Override

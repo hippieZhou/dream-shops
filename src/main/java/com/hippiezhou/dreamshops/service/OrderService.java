@@ -1,9 +1,13 @@
 package com.hippiezhou.dreamshops.service;
 
-import com.hippiezhou.dreamshops.model.Order;
+import com.hippiezhou.dreamshops.dto.OrderDto;
+
+import java.util.List;
 
 public interface OrderService {
-    Order placeOrder(Long userId);
+    OrderDto placeOrder(Long userId);
 
-    Order getOrder(Long orderId);
+    OrderDto getOrder(Long orderId);
+
+    List<OrderDto> getUserOrders(Long userId);
 }
