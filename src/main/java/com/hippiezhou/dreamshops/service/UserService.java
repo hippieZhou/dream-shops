@@ -1,5 +1,6 @@
 package com.hippiezhou.dreamshops.service;
 
+import com.hippiezhou.dreamshops.dto.UserDto;
 import com.hippiezhou.dreamshops.model.User;
 import com.hippiezhou.dreamshops.request.UserCreateRequest;
 import com.hippiezhou.dreamshops.request.UserUpdateRequest;
@@ -12,5 +13,7 @@ public interface UserService {
     User updateUser(Long userId, UserUpdateRequest request);
 
     void deleteUser(Long userId);
+
+    UserDto convertToDto(User user);
 }
 
