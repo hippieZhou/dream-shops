@@ -23,15 +23,14 @@ server:
   port: 8080
 
 api:
-  version: 1.0
-  title: Dream Shops API
-  description: Dream Shops API Documentation
-  termsOfServiceUrl: http://www.dreamshops.com
   prefix: /api/v1
-  contact:
-    name: Dream Shops
-    url: http://www.dreamshops.com
-    email:
+
+springdoc:
+    swagger-ui:
+      path: /swagger-ui.html
+    api-docs:
+      path: /openapi
+    use-fqn: true
 
 auth:
   token:
