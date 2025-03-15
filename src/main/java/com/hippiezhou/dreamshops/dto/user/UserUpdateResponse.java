@@ -7,6 +7,11 @@ import jakarta.validation.constraints.NotBlank;
 public record UserUpdateResponse(
     @Schema(
         requiredMode = Schema.RequiredMode.REQUIRED,
+        description = "Unique identifier",
+        example = "1")
+    Long id,
+    @Schema(
+        requiredMode = Schema.RequiredMode.REQUIRED,
         description = "User first name",
         example = "John")
     @NotBlank

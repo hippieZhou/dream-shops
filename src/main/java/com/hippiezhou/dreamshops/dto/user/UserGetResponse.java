@@ -6,8 +6,8 @@ import io.swagger.v3.oas.annotations.media.Schema;
 public record UserGetResponse(
     @Schema(
         requiredMode = Schema.RequiredMode.REQUIRED,
-        description = "User first name",
-        example = "John")
+        description = "Unique identifier",
+        example = "1")
     Long id,
     @Schema(
         requiredMode = Schema.RequiredMode.REQUIRED,

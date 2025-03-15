@@ -1,9 +1,9 @@
 package com.hippiezhou.dreamshops.controller;
 
-import com.hippiezhou.dreamshops.dto.user.*;
+import com.hippiezhou.dreamshops.dto.user.UserCreateRequest;
+import com.hippiezhou.dreamshops.dto.user.UserUpdateRequest;
 import com.hippiezhou.dreamshops.exception.ResourceAlreadyExistsException;
 import com.hippiezhou.dreamshops.exception.ResourceNotFoundException;
-import com.hippiezhou.dreamshops.model.User;
 import com.hippiezhou.dreamshops.response.ApiResponse;
 import com.hippiezhou.dreamshops.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -44,14 +44,7 @@ public class UserController {
     )
     public ResponseEntity<ApiResponse> getUserId(@PathVariable Long userId) {
         try {
-            User user = userService.getUserById(userId);
-            UserDto userDto = userService.convertToDto(user);
-            return ResponseEntity.ok(new ApiResponse("User found",
-                new UserGetResponse(
-                    userDto.getId(),
-                    userDto.getFirstName(),
-                    userDto.getLastName(),
-                    userDto.getEmail())));
+            return ResponseEntity.ok(new ApiResponse("User found", userService.getUserById(userId)));
         } catch (ResourceNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse(e.getMessage(), null));
         }
@@ -79,14 +72,7 @@ public class UserController {
     )
     public ResponseEntity<ApiResponse> createUser(@Valid @RequestBody UserCreateRequest user) {
         try {
-            User newUser = userService.createUser(user);
-            UserDto userDto = userService.convertToDto(newUser);
-            return ResponseEntity.ok(new ApiResponse("User created",
-                new UserCreateResponse(
-                    userDto.getId(),
-                    userDto.getFirstName(),
-                    userDto.getLastName(),
-                    userDto.getEmail())));
+            return ResponseEntity.ok(new ApiResponse("User created", userService.createUser(user)));
         } catch (ResourceAlreadyExistsException e) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body(new ApiResponse(e.getMessage(), null));
         }
@@ -114,12 +100,7 @@ public class UserController {
     )
     public ResponseEntity<ApiResponse> updateUser(@PathVariable Long userId, @Valid @RequestBody UserUpdateRequest user) {
         try {
-            User updatedUser = userService.updateUser(userId, user);
-            UserDto userDto = userService.convertToDto(updatedUser);
-            return ResponseEntity.ok(new ApiResponse("User updated",
-                new UserUpdateResponse(
-                    userDto.getFirstName(),
-                    userDto.getLastName())));
+            return ResponseEntity.ok(new ApiResponse("User updated", userService.updateUser(userId, user)));
         } catch (ResourceNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse(e.getMessage(), null));
         }

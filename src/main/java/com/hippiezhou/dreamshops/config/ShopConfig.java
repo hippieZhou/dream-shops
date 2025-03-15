@@ -4,7 +4,6 @@ import com.hippiezhou.dreamshops.security.jwt.AuthTokenFilter;
 import com.hippiezhou.dreamshops.security.jwt.JwtAuthEntryPoint;
 import com.hippiezhou.dreamshops.security.user.ShopUserDetailsService;
 import lombok.RequiredArgsConstructor;
-import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -32,11 +31,6 @@ public class ShopConfig {
         "/api/v1/cartItems/**");
     private final ShopUserDetailsService shopUserDetailsService;
     private final JwtAuthEntryPoint jwtAuthEntryPoint;
-
-    @Bean
-    public ModelMapper modelMapper() {
-        return new ModelMapper();
-    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
