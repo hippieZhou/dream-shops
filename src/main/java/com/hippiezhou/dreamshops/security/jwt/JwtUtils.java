@@ -12,6 +12,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Component;
 
 import java.security.Key;
+import java.security.SecureRandom;
+import java.util.Base64;
 import java.util.Date;
 import java.util.List;
 
@@ -21,6 +23,14 @@ public class JwtUtils {
     private String jwtSecret;
     @Value("${auth.token.jwtExpirationMs}")
     private int jwtExpirationMs;
+
+    // Generate a random private key
+    public String generatePrivateKey() {
+        SecureRandom random = new SecureRandom();
+        byte[] key = new byte[64]; // 512 bits
+        random.nextBytes(key);
+        return Base64.getEncoder().encodeToString(key);
+    }
 
     public String generateTokenForUser(Authentication authentication) {
         ShopUserDetails userPrincipal = (ShopUserDetails) authentication.getPrincipal();

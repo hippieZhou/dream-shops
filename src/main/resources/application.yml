@@ -34,5 +34,5 @@ springdoc:
 
 auth:
   token:
-    jwtSecret: 86400000asdasqweqweasadqwedfiojjlpiopjm
+    jwtSecret: HbHP6QzQ2xg+1aJ3qosEKVr7jTrbvtWTlF0lhjIVtzL7eDpI0w1d1t2POnN0+aYDWqnXsFg3UTceEdSHPWhsxA==
     jwtExpirationMs: 3600000
