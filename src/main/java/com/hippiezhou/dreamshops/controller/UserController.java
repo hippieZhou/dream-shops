@@ -4,7 +4,7 @@ import com.hippiezhou.dreamshops.dto.user.UserCreateRequest;
 import com.hippiezhou.dreamshops.dto.user.UserUpdateRequest;
 import com.hippiezhou.dreamshops.exception.ResourceAlreadyExistsException;
 import com.hippiezhou.dreamshops.exception.ResourceNotFoundException;
-import com.hippiezhou.dreamshops.response.ApiResponse;
+import com.hippiezhou.dreamshops.dto.ApiResponse;
 import com.hippiezhou.dreamshops.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;

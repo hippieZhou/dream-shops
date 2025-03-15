@@ -44,7 +44,7 @@ public class JwtUtils {
             .claim("id", userPrincipal.getId())
             .claim("roles", roles)
             .claim("username", userPrincipal.getUsername())
-            .setIssuer("dreamshops")
+            .setIssuer("dream-shops")
             .setIssuedAt(new Date())
             .setExpiration(new Date((new Date()).getTime() + jwtExpirationMs))
             .signWith(key(), SignatureAlgorithm.HS512).compact();

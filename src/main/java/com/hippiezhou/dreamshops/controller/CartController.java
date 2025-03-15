@@ -1,7 +1,7 @@
 package com.hippiezhou.dreamshops.controller;
 
 import com.hippiezhou.dreamshops.exception.ResourceNotFoundException;
-import com.hippiezhou.dreamshops.response.ApiResponse;
+import com.hippiezhou.dreamshops.dto.ApiResponse;
 import com.hippiezhou.dreamshops.service.CartService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

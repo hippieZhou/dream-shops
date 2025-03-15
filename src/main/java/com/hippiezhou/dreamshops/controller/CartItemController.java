@@ -3,7 +3,7 @@ package com.hippiezhou.dreamshops.controller;
 import com.hippiezhou.dreamshops.exception.ResourceNotFoundException;
 import com.hippiezhou.dreamshops.model.Cart;
 import com.hippiezhou.dreamshops.model.User;
-import com.hippiezhou.dreamshops.response.ApiResponse;
+import com.hippiezhou.dreamshops.dto.ApiResponse;
 import com.hippiezhou.dreamshops.service.CartItemService;
 import com.hippiezhou.dreamshops.service.CartService;
 import com.hippiezhou.dreamshops.service.UserService;

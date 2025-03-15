@@ -1,6 +1,5 @@
 package com.hippiezhou.dreamshops.security.jwt;
 
-
 import com.hippiezhou.dreamshops.security.user.ShopUserDetails;
 import com.hippiezhou.dreamshops.security.user.ShopUserDetailsService;
 import io.jsonwebtoken.JwtException;
@@ -9,6 +8,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.NonNull;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
@@ -18,7 +18,9 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
 
 public class AuthTokenFilter extends OncePerRequestFilter {
+    @Autowired
     private JwtUtils jwtUtils;
+    @Autowired
     private ShopUserDetailsService shopUserDetailsService;
 
     @Override

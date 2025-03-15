@@ -1,6 +1,6 @@
 package com.hippiezhou.dreamshops.service.impl;
 
-import com.hippiezhou.dreamshops.dto.ImageDto;
+import com.hippiezhou.dreamshops.dto.image.ImageDto;
 import com.hippiezhou.dreamshops.exception.ResourceNotFoundException;
 import com.hippiezhou.dreamshops.model.Image;
 import com.hippiezhou.dreamshops.model.Product;

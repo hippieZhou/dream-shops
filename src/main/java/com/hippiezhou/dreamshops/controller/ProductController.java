@@ -1,12 +1,12 @@
 package com.hippiezhou.dreamshops.controller;
 
-import com.hippiezhou.dreamshops.dto.ProductDto;
+import com.hippiezhou.dreamshops.dto.product.ProductDto;
+import com.hippiezhou.dreamshops.dto.product.ProductAddRequest;
+import com.hippiezhou.dreamshops.dto.product.ProductUpdateRequest;
 import com.hippiezhou.dreamshops.exception.ResourceAlreadyExistsException;
 import com.hippiezhou.dreamshops.exception.ResourceNotFoundException;
 import com.hippiezhou.dreamshops.model.Product;
-import com.hippiezhou.dreamshops.request.ProductAddRequest;
-import com.hippiezhou.dreamshops.request.ProductUpdateRequest;
-import com.hippiezhou.dreamshops.response.ApiResponse;
+import com.hippiezhou.dreamshops.dto.ApiResponse;
 import com.hippiezhou.dreamshops.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -31,6 +31,7 @@ public class ProductController {
     @PostMapping("/add")
     public ResponseEntity<ApiResponse> addProduct(@RequestBody ProductAddRequest product) {
         try {
+
             Product newProduct = productService.addProduct(product);
             ProductDto productDto = productService.convertToDto(newProduct);
             return ResponseEntity.ok(new ApiResponse("Product added successfully", productDto));

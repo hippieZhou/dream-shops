@@ -1,7 +1,9 @@
 package com.hippiezhou.dreamshops.service.impl;
 
-import com.hippiezhou.dreamshops.dto.ImageDto;
-import com.hippiezhou.dreamshops.dto.ProductDto;
+import com.hippiezhou.dreamshops.dto.image.ImageDto;
+import com.hippiezhou.dreamshops.dto.product.ProductAddRequest;
+import com.hippiezhou.dreamshops.dto.product.ProductDto;
+import com.hippiezhou.dreamshops.dto.product.ProductUpdateRequest;
 import com.hippiezhou.dreamshops.exception.ResourceAlreadyExistsException;
 import com.hippiezhou.dreamshops.exception.ResourceNotFoundException;
 import com.hippiezhou.dreamshops.model.Category;
@@ -10,8 +12,6 @@ import com.hippiezhou.dreamshops.model.Product;
 import com.hippiezhou.dreamshops.repository.CategoryRepository;
 import com.hippiezhou.dreamshops.repository.ImageRepository;
 import com.hippiezhou.dreamshops.repository.ProductRepository;
-import com.hippiezhou.dreamshops.request.ProductAddRequest;
-import com.hippiezhou.dreamshops.request.ProductUpdateRequest;
 import com.hippiezhou.dreamshops.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -105,11 +105,6 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<Product> getProductsByBrand(String brand) {
         return productRepository.findByBrand(brand);
-    }
-
-    @Override
-    public List<Product> getProductsByCategoryAndBrand(String category, String brand) {
-        return productRepository.findByCategoryNameAndBrand(category, brand);
     }
 
     @Override

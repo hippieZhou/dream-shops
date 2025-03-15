@@ -1,6 +1,6 @@
 package com.hippiezhou.dreamshops.service;
 
-import com.hippiezhou.dreamshops.dto.OrderDto;
+import com.hippiezhou.dreamshops.dto.order.OrderDto;
 
 import java.util.List;
 

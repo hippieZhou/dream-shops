@@ -1,6 +1,6 @@
 package com.hippiezhou.dreamshops.mapper;
 
-import com.hippiezhou.dreamshops.dto.OrderDto;
+import com.hippiezhou.dreamshops.dto.order.OrderDto;
 import com.hippiezhou.dreamshops.model.Order;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingConstants;

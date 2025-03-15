@@ -1,9 +1,9 @@
 package com.hippiezhou.dreamshops.controller;
 
-import com.hippiezhou.dreamshops.dto.ImageDto;
+import com.hippiezhou.dreamshops.dto.image.ImageDto;
 import com.hippiezhou.dreamshops.exception.ResourceNotFoundException;
 import com.hippiezhou.dreamshops.model.Image;
-import com.hippiezhou.dreamshops.response.ApiResponse;
+import com.hippiezhou.dreamshops.dto.ApiResponse;
 import com.hippiezhou.dreamshops.service.ImageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.ByteArrayResource;

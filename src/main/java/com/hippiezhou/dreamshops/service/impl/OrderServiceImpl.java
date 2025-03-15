@@ -1,6 +1,6 @@
 package com.hippiezhou.dreamshops.service.impl;
 
-import com.hippiezhou.dreamshops.dto.OrderDto;
+import com.hippiezhou.dreamshops.dto.order.OrderDto;
 import com.hippiezhou.dreamshops.enums.OrderStatus;
 import com.hippiezhou.dreamshops.exception.ResourceNotFoundException;
 import com.hippiezhou.dreamshops.mapper.OrderMapper;

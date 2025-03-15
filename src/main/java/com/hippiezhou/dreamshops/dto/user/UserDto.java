@@ -1,7 +1,7 @@
 package com.hippiezhou.dreamshops.dto.user;
 
-import com.hippiezhou.dreamshops.dto.CartDto;
-import com.hippiezhou.dreamshops.dto.OrderDto;
+import com.hippiezhou.dreamshops.dto.cart.CartDto;
+import com.hippiezhou.dreamshops.dto.order.OrderDto;
 import lombok.Data;
 
 import java.util.List;

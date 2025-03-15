@@ -1,6 +1,6 @@
 package com.hippiezhou.dreamshops.service;
 
-import com.hippiezhou.dreamshops.dto.ImageDto;
+import com.hippiezhou.dreamshops.dto.image.ImageDto;
 import com.hippiezhou.dreamshops.model.Image;
 import org.springframework.web.multipart.MultipartFile;
 

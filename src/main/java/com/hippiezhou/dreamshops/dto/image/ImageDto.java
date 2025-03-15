@@ -1,4 +1,4 @@
-package com.hippiezhou.dreamshops.dto;
+package com.hippiezhou.dreamshops.dto.image;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

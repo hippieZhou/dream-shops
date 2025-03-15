@@ -1,9 +1,9 @@
 package com.hippiezhou.dreamshops.service;
 
-import com.hippiezhou.dreamshops.dto.ProductDto;
+import com.hippiezhou.dreamshops.dto.product.ProductDto;
+import com.hippiezhou.dreamshops.dto.product.ProductAddRequest;
+import com.hippiezhou.dreamshops.dto.product.ProductUpdateRequest;
 import com.hippiezhou.dreamshops.model.Product;
-import com.hippiezhou.dreamshops.request.ProductAddRequest;
-import com.hippiezhou.dreamshops.request.ProductUpdateRequest;
 
 import java.util.List;
 
@@ -21,8 +21,6 @@ public interface ProductService {
     List<Product> getProductsByCategory(String category);
 
     List<Product> getProductsByBrand(String brand);
-
-    List<Product> getProductsByCategoryAndBrand(String category, String brand);
 
     List<Product> getProductByName(String name);
 

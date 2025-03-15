@@ -1,5 +1,6 @@
-package com.hippiezhou.dreamshops.dto;
+package com.hippiezhou.dreamshops.dto.cart;
 
+import com.hippiezhou.dreamshops.dto.product.ProductDto;
 import lombok.Data;
 
 import java.math.BigDecimal;

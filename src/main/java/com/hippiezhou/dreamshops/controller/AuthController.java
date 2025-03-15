@@ -2,7 +2,7 @@ package com.hippiezhou.dreamshops.controller;
 
 import com.hippiezhou.dreamshops.dto.auth.LoginRequest;
 import com.hippiezhou.dreamshops.dto.auth.LoginResponse;
-import com.hippiezhou.dreamshops.response.ApiResponse;
+import com.hippiezhou.dreamshops.dto.ApiResponse;
 import com.hippiezhou.dreamshops.security.jwt.JwtUtils;
 import com.hippiezhou.dreamshops.security.user.ShopUserDetails;
 import io.swagger.v3.oas.annotations.Operation;
