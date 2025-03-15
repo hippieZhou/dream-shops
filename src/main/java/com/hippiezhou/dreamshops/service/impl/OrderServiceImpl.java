@@ -1,9 +1,7 @@
 package com.hippiezhou.dreamshops.service.impl;
 
-import com.hippiezhou.dreamshops.dto.order.OrderDto;
 import com.hippiezhou.dreamshops.enums.OrderStatus;
 import com.hippiezhou.dreamshops.exception.ResourceNotFoundException;
-import com.hippiezhou.dreamshops.mapper.OrderMapper;
 import com.hippiezhou.dreamshops.model.Cart;
 import com.hippiezhou.dreamshops.model.Order;
 import com.hippiezhou.dreamshops.model.OrderItem;
@@ -26,10 +24,9 @@ public class OrderServiceImpl implements OrderService {
     private final OrderRepository orderRepository;
     private final ProductRepository productRepository;
     private final CartService cartService;
-    private final OrderMapper orderMapper;
 
     @Override
-    public OrderDto placeOrder(Long userId) {
+    public Order placeOrder(Long userId) {
         Cart cart = cartService.getCartByUserId(userId);
 
         Order order = createOrder(cart);
@@ -41,7 +38,7 @@ public class OrderServiceImpl implements OrderService {
         Order savedOrder = orderRepository.save(order);
         cartService.clearCart(cart.getId());
 
-        return orderMapper.convertToDto(savedOrder);
+        return savedOrder;
     }
 
     private Order createOrder(Cart cart) {
@@ -73,13 +70,13 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public OrderDto getOrder(Long orderId) {
-        return orderRepository.findById(orderId).map(orderMapper::convertToDto)
+    public Order getOrder(Long orderId) {
+        return orderRepository.findById(orderId)
             .orElseThrow(() -> new ResourceNotFoundException(orderId));
     }
 
     @Override
-    public List<OrderDto> getUserOrders(Long userId) {
-        return orderRepository.findByUserId(userId).stream().map(orderMapper::convertToDto).toList();
+    public List<Order> getUserOrders(Long userId) {
+        return orderRepository.findByUserId(userId).stream().toList();
     }
 }

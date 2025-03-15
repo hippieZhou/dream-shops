@@ -1,8 +1,7 @@
 package com.hippiezhou.dreamshops.controller;
 
-import com.hippiezhou.dreamshops.dto.order.OrderDto;
-import com.hippiezhou.dreamshops.exception.ResourceNotFoundException;
 import com.hippiezhou.dreamshops.dto.ApiResponse;
+import com.hippiezhou.dreamshops.exception.ResourceNotFoundException;
 import com.hippiezhou.dreamshops.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -18,8 +17,7 @@ public class OrderController {
     @PostMapping("/order")
     public ResponseEntity<ApiResponse> createOrder(Long userId) {
         try {
-            OrderDto orderDto = orderService.placeOrder(userId);
-            return ResponseEntity.ok(new ApiResponse("Order created successfully", orderDto));
+            return ResponseEntity.ok(new ApiResponse("Order created successfully", orderService.placeOrder(userId)));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ApiResponse(e.getMessage(), null));
         }
