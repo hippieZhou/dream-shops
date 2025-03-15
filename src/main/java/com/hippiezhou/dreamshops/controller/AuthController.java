@@ -1,10 +1,14 @@
 package com.hippiezhou.dreamshops.controller;
 
-import com.hippiezhou.dreamshops.request.LoginRequest;
+import com.hippiezhou.dreamshops.dto.auth.LoginRequest;
+import com.hippiezhou.dreamshops.dto.auth.LoginResponse;
 import com.hippiezhou.dreamshops.response.ApiResponse;
-import com.hippiezhou.dreamshops.response.JwtResponse;
 import com.hippiezhou.dreamshops.security.jwt.JwtUtils;
 import com.hippiezhou.dreamshops.security.user.ShopUserDetails;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -27,13 +31,32 @@ public class AuthController {
     private final JwtUtils jwtUtils;
 
     @PostMapping("/login")
+    @Operation(summary = "User login")
+    @ApiResponses(
+        value = {
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(
+                responseCode = "200",
+                description = "Login successful",
+                content = @Content(
+                    mediaType = "application/json",
+                    schema = @Schema(implementation = ApiResponse.class))
+            ),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(
+                responseCode = "401",
+                description = "Unauthorized",
+                content = @Content(
+                    mediaType = "application/json",
+                    schema = @Schema(implementation = ApiResponse.class))
+            )
+        }
+    )
     public ResponseEntity<ApiResponse> login(@Valid @RequestBody LoginRequest request) {
         try {
-            Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
+            Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.email(), request.password()));
             SecurityContextHolder.getContext().setAuthentication(authentication);
             String jwt = jwtUtils.generateTokenForUser(authentication);
             ShopUserDetails userDetails = (ShopUserDetails) authentication.getPrincipal();
-            JwtResponse jwtResponse = new JwtResponse(userDetails.getId(), jwt);
+            LoginResponse jwtResponse = new LoginResponse(userDetails.getId(), jwt);
             return ResponseEntity.ok(new ApiResponse("Login successful!", jwtResponse));
         } catch (AuthenticationException e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ApiResponse(e.getMessage(), null));
