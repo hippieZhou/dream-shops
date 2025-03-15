@@ -1,9 +1,9 @@
 package com.hippiezhou.dreamshops.service;
 
-import com.hippiezhou.dreamshops.dto.UserDto;
+import com.hippiezhou.dreamshops.dto.user.UserDto;
 import com.hippiezhou.dreamshops.model.User;
-import com.hippiezhou.dreamshops.request.UserCreateRequest;
-import com.hippiezhou.dreamshops.request.UserUpdateRequest;
+import com.hippiezhou.dreamshops.dto.user.UserCreateRequest;
+import com.hippiezhou.dreamshops.dto.user.UserUpdateRequest;
 
 public interface UserService {
     User getUserById(Long userId);
