@@ -1,10 +1,17 @@
 package com.hippiezhou.dreamshops.controller;
 
+import com.hippiezhou.dreamshops.dto.ApiResponse;
 import com.hippiezhou.dreamshops.dto.image.ImageDto;
 import com.hippiezhou.dreamshops.exception.ResourceNotFoundException;
 import com.hippiezhou.dreamshops.model.Image;
-import com.hippiezhou.dreamshops.dto.ApiResponse;
+import com.hippiezhou.dreamshops.service.BingService;
 import com.hippiezhou.dreamshops.service.ImageService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
@@ -14,6 +21,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import reactor.core.publisher.Mono;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -23,6 +31,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ImageController {
     private final ImageService imageService;
+    private final BingService bingService;
 
     @PostMapping("/upload")
     public ResponseEntity<ApiResponse> saveImages(@RequestParam("files") List<MultipartFile> files, @RequestParam Long productId) {
@@ -69,5 +78,39 @@ public class ImageController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse(e.getMessage(), null));
         }
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ApiResponse("Image delete failed!", HttpStatus.INTERNAL_SERVER_ERROR));
+    }
+
+    @GetMapping("/bing-daily")
+    @Operation(summary = "Get Bing image of the day")
+    @ResponseStatus(HttpStatus.OK)
+    @ApiResponses(
+        value = {
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(
+                responseCode = "200",
+                description = "Bing image retrieved successfully",
+                content = @io.swagger.v3.oas.annotations.media.Content(
+                    mediaType = "application/json",
+                    schema = @Schema(implementation = ApiResponse.class))
+            ),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(
+                responseCode = "500",
+                description = "Bing image retrieve failed!",
+                content = @io.swagger.v3.oas.annotations.media.Content(
+                    mediaType = "application/json",
+                    schema = @Schema(implementation = ApiResponse.class))
+            )
+        }
+    )
+    public Mono<ResponseEntity<ApiResponse>> getBingImage(
+        @Valid @Min(1) @Max(7)
+        @Schema(description = "Number of Bing images to retrieve(1-7)", example = "1")
+        @RequestParam Integer n) {
+        return bingService.getBingImage(n)
+            .map(bingResponse ->
+                ResponseEntity.ok(
+                    new ApiResponse("Bing image retrieved successfully", bingResponse)))
+            .defaultIfEmpty(
+                ResponseEntity.status(
+                    HttpStatus.INTERNAL_SERVER_ERROR).body(new ApiResponse("Bing image retrieve failed!", null)));
     }
 }

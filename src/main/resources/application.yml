@@ -36,3 +36,6 @@ auth:
   token:
     jwtSecret: HbHP6QzQ2xg+1aJ3qosEKVr7jTrbvtWTlF0lhjIVtzL7eDpI0w1d1t2POnN0+aYDWqnXsFg3UTceEdSHPWhsxA==
     jwtExpirationMs: 3600000
+
+bing:
+  base-url: https://www.bing.com
