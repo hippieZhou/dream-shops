@@ -29,8 +29,9 @@ import java.util.List;
 @EnableMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
     private static final List<String> SECURED_URL = List.of(
-        "/api/v1/cats/**",
-        "/api/v1/cartItems/**");
+        "/api/v1/**");
+    private static final List<String> ANONYMOUS_URL = List.of(
+        "/api/v1/auth/**");
     private final ShopUserDetailsService shopUserDetailsService;
     private final JwtAuthEntryPoint jwtAuthEntryPoint;
 
@@ -62,8 +63,9 @@ public class SecurityConfig {
         http.csrf(AbstractHttpConfigurer::disable)
             .exceptionHandling(exceptionHandling -> exceptionHandling.authenticationEntryPoint(jwtAuthEntryPoint))
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-            .authorizeHttpRequests(auth -> auth.requestMatchers(SECURED_URL.toArray(String[]::new)).authenticated()
-                .anyRequest().permitAll());
+            .authorizeHttpRequests(auth ->
+                auth.requestMatchers(ANONYMOUS_URL.toArray(String[]::new)).permitAll()
+                    .requestMatchers(SECURED_URL.toArray(String[]::new)).authenticated().anyRequest().permitAll());
         http.authenticationProvider(daoAuthenticationProvider());
         http.addFilterBefore(authTokenFilter(), UsernamePasswordAuthenticationFilter.class);
         return http.build();

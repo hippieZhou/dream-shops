@@ -1,8 +1,8 @@
 package com.hippiezhou.dreamshops.controller;
 
+import com.hippiezhou.dreamshops.dto.ApiResponse;
 import com.hippiezhou.dreamshops.dto.auth.LoginRequest;
 import com.hippiezhou.dreamshops.dto.auth.LoginResponse;
-import com.hippiezhou.dreamshops.dto.ApiResponse;
 import com.hippiezhou.dreamshops.security.jwt.JwtUtils;
 import com.hippiezhou.dreamshops.security.user.ShopUserDetails;
 import io.swagger.v3.oas.annotations.Operation;
@@ -31,7 +31,7 @@ public class AuthController {
     private final JwtUtils jwtUtils;
 
     @PostMapping("/login")
-    @Operation(summary = "User login")
+    @Operation(summary = "User login with email and password", security = {})
     @ApiResponses(
         value = {
             @io.swagger.v3.oas.annotations.responses.ApiResponse(
