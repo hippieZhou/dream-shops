@@ -1,4 +1,4 @@
-package com.hippiezhou.dreamshops.controller;
+package com.hippiezhou.dreamshops.controller.image;
 
 import com.hippiezhou.dreamshops.dto.ApiResponse;
 import com.hippiezhou.dreamshops.dto.image.ImageDto;
@@ -44,7 +44,7 @@ public class ImageController {
     }
 
     @GetMapping("/image/download/{imageId}")
-    public ResponseEntity<Resource> downloadImage(@PathVariable Long imageId) throws SQLException {
+    public ResponseEntity<Resource> downloadImage(@PathVariable("imageId") Long imageId) throws SQLException {
         Image image = imageService.getImageById(imageId);
         ByteArrayResource resource = new ByteArrayResource(image.getImage().getBytes(1, (int) image.getImage().length()));
         return ResponseEntity.ok().contentType(MediaType.parseMediaType(image.getFileType()))
@@ -53,7 +53,7 @@ public class ImageController {
     }
 
     @PutMapping("/image/{imageId}/update")
-    public ResponseEntity<ApiResponse> updateImage(@PathVariable Long imageId, @RequestBody MultipartFile file) {
+    public ResponseEntity<ApiResponse> updateImage(@PathVariable("imageId") Long imageId, @RequestBody MultipartFile file) {
         try {
             Image image = imageService.getImageById(imageId);
             if (image != null) {
@@ -67,7 +67,7 @@ public class ImageController {
     }
 
     @DeleteMapping("/image/{imageId}/delete")
-    public ResponseEntity<ApiResponse> deleteImage(@PathVariable Long imageId) {
+    public ResponseEntity<ApiResponse> deleteImage(@PathVariable("imageId") Long imageId) {
         try {
             Image image = imageService.getImageById(imageId);
             if (image != null) {
@@ -104,7 +104,7 @@ public class ImageController {
     public Mono<ResponseEntity<ApiResponse>> getBingImage(
         @Valid @Min(1) @Max(7)
         @Schema(description = "Number of Bing images to retrieve(1-7)", example = "1")
-        @RequestParam Integer n) {
+        @RequestParam("n") Integer n) {
         return bingService.getBingImage(n)
             .map(bingResponse ->
                 ResponseEntity.ok(

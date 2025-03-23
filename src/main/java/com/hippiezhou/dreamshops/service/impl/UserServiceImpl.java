@@ -1,6 +1,10 @@
 package com.hippiezhou.dreamshops.service.impl;
 
-import com.hippiezhou.dreamshops.dto.user.*;
+import com.hippiezhou.dreamshops.controller.user.request.UserCreateRequest;
+import com.hippiezhou.dreamshops.controller.user.request.UserUpdateRequest;
+import com.hippiezhou.dreamshops.controller.user.response.UserCreateResponse;
+import com.hippiezhou.dreamshops.controller.user.response.UserGetResponse;
+import com.hippiezhou.dreamshops.controller.user.response.UserUpdateResponse;
 import com.hippiezhou.dreamshops.exception.ResourceAlreadyExistsException;
 import com.hippiezhou.dreamshops.exception.ResourceNotFoundException;
 import com.hippiezhou.dreamshops.mapper.UserMapper;

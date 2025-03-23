@@ -1,8 +1,8 @@
 package com.hippiezhou.dreamshops.service;
 
 import com.hippiezhou.dreamshops.dto.product.ProductDto;
-import com.hippiezhou.dreamshops.dto.product.ProductAddRequest;
-import com.hippiezhou.dreamshops.dto.product.ProductUpdateRequest;
+import com.hippiezhou.dreamshops.controller.product.request.ProductAddRequest;
+import com.hippiezhou.dreamshops.controller.product.request.ProductUpdateRequest;
 import com.hippiezhou.dreamshops.model.Product;
 
 import java.util.List;

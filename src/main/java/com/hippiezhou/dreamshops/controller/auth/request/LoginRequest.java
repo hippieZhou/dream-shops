@@ -1,4 +1,4 @@
-package com.hippiezhou.dreamshops.dto.auth;
+package com.hippiezhou.dreamshops.controller.auth.request;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Email;

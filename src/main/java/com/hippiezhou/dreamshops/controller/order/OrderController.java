@@ -1,4 +1,4 @@
-package com.hippiezhou.dreamshops.controller;
+package com.hippiezhou.dreamshops.controller.order;
 
 import com.hippiezhou.dreamshops.dto.ApiResponse;
 import com.hippiezhou.dreamshops.exception.ResourceNotFoundException;
@@ -15,7 +15,7 @@ public class OrderController {
     private final OrderService orderService;
 
     @PostMapping("/order")
-    public ResponseEntity<ApiResponse> createOrder(Long userId) {
+    public ResponseEntity<ApiResponse> createOrder(@RequestParam("userId") Long userId) {
         try {
             return ResponseEntity.ok(new ApiResponse("Order created successfully", orderService.placeOrder(userId)));
         } catch (Exception e) {
@@ -24,7 +24,7 @@ public class OrderController {
     }
 
     @GetMapping("/{orderId}/order")
-    public ResponseEntity<ApiResponse> getOrderById(@PathVariable Long orderId) {
+    public ResponseEntity<ApiResponse> getOrderById(@PathVariable("orderId") Long orderId) {
         try {
             return ResponseEntity.ok(new ApiResponse("Order retrieved successfully", orderService.getOrder(orderId)));
         } catch (ResourceNotFoundException e) {
@@ -35,7 +35,7 @@ public class OrderController {
     }
 
     @GetMapping("/{userId}/orders")
-    public ResponseEntity<ApiResponse> getUerOrders(@PathVariable Long userId) {
+    public ResponseEntity<ApiResponse> getUerOrders(@PathVariable("userId") Long userId) {
         try {
             return ResponseEntity.ok(new ApiResponse("Orders retrieved successfully", orderService.getUserOrders(userId)));
         } catch (ResourceNotFoundException e) {

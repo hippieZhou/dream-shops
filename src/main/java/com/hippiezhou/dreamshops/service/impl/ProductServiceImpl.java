@@ -1,9 +1,9 @@
 package com.hippiezhou.dreamshops.service.impl;
 
 import com.hippiezhou.dreamshops.dto.image.ImageDto;
-import com.hippiezhou.dreamshops.dto.product.ProductAddRequest;
+import com.hippiezhou.dreamshops.controller.product.request.ProductAddRequest;
 import com.hippiezhou.dreamshops.dto.product.ProductDto;
-import com.hippiezhou.dreamshops.dto.product.ProductUpdateRequest;
+import com.hippiezhou.dreamshops.controller.product.request.ProductUpdateRequest;
 import com.hippiezhou.dreamshops.exception.ResourceAlreadyExistsException;
 import com.hippiezhou.dreamshops.exception.ResourceNotFoundException;
 import com.hippiezhou.dreamshops.model.Category;

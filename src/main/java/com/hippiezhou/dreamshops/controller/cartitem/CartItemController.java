@@ -1,9 +1,9 @@
-package com.hippiezhou.dreamshops.controller;
+package com.hippiezhou.dreamshops.controller.cartitem;
 
+import com.hippiezhou.dreamshops.dto.ApiResponse;
 import com.hippiezhou.dreamshops.exception.ResourceNotFoundException;
 import com.hippiezhou.dreamshops.model.Cart;
 import com.hippiezhou.dreamshops.model.User;
-import com.hippiezhou.dreamshops.dto.ApiResponse;
 import com.hippiezhou.dreamshops.service.CartItemService;
 import com.hippiezhou.dreamshops.service.CartService;
 import com.hippiezhou.dreamshops.service.UserService;
@@ -22,8 +22,9 @@ public class CartItemController {
     private final UserService userService;
 
     @PostMapping("/item/add")
-    public ResponseEntity<ApiResponse> addItemToCart(@RequestParam Long productId,
-                                                     @RequestParam Integer quantity) {
+    public ResponseEntity<ApiResponse> addItemToCart(
+        @RequestParam("productId") Long productId,
+        @RequestParam("quantity") Integer quantity) {
         try {
             User user = userService.getAuthenticatedUser();
             Cart cart = cartService.initializedNewCart(user);
@@ -40,8 +41,9 @@ public class CartItemController {
     }
 
     @GetMapping("/{cartId}/item/{itemId}/remove")
-    public ResponseEntity<ApiResponse> removeItemFromCart(@PathVariable Long cartId,
-                                                          @PathVariable Long itemId) {
+    public ResponseEntity<ApiResponse> removeItemFromCart(
+        @PathVariable("cartId") Long cartId,
+        @PathVariable("itemId") Long itemId) {
         try {
             cartItemService.removeItemFromCart(cartId, itemId);
             return ResponseEntity.ok(new ApiResponse("Item removed from cart successfully", null));
@@ -53,9 +55,10 @@ public class CartItemController {
     }
 
     @PutMapping("/{cartId}/item/{itemId}/update-quantity")
-    public ResponseEntity<ApiResponse> updateItemQuantity(@PathVariable Long cartId,
-                                                          @PathVariable Long itemId,
-                                                          @RequestParam Integer quantity) {
+    public ResponseEntity<ApiResponse> updateItemQuantity(
+        @PathVariable("cartId") Long cartId,
+        @PathVariable("itemId") Long itemId,
+        @RequestParam("quantity") Integer quantity) {
         try {
             cartItemService.updateItemQuantity(cartId, itemId, quantity);
             return ResponseEntity.ok(new ApiResponse("Item quantity updated successfully", null));

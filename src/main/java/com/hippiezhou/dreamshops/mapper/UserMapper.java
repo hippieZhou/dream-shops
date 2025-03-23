@@ -1,8 +1,8 @@
 package com.hippiezhou.dreamshops.mapper;
 
-import com.hippiezhou.dreamshops.dto.user.UserCreateResponse;
-import com.hippiezhou.dreamshops.dto.user.UserGetResponse;
-import com.hippiezhou.dreamshops.dto.user.UserUpdateResponse;
+import com.hippiezhou.dreamshops.controller.user.response.UserCreateResponse;
+import com.hippiezhou.dreamshops.controller.user.response.UserGetResponse;
+import com.hippiezhou.dreamshops.controller.user.response.UserUpdateResponse;
 import com.hippiezhou.dreamshops.model.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

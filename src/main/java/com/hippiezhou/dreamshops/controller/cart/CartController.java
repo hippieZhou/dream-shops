@@ -1,8 +1,9 @@
-package com.hippiezhou.dreamshops.controller;
+package com.hippiezhou.dreamshops.controller.cart;
 
-import com.hippiezhou.dreamshops.exception.ResourceNotFoundException;
 import com.hippiezhou.dreamshops.dto.ApiResponse;
+import com.hippiezhou.dreamshops.exception.ResourceNotFoundException;
 import com.hippiezhou.dreamshops.service.CartService;
+import io.swagger.v3.oas.annotations.Parameter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +16,9 @@ public class CartController {
     private final CartService cartService;
 
     @GetMapping("/{cartId}/my-cart")
-    public ResponseEntity<ApiResponse> getCart(@PathVariable Long cartId) {
+    public ResponseEntity<ApiResponse> getCart(
+        @Parameter(description = "Cart ID", required = true)
+        @PathVariable("cartId") Long cartId) {
         try {
             return ResponseEntity.ok(new ApiResponse("Cart fetched successfully", cartService.getCartById(cartId)));
         } catch (ResourceNotFoundException e) {
@@ -26,7 +29,9 @@ public class CartController {
     }
 
     @DeleteMapping("/{cartId}/clear")
-    public ResponseEntity<ApiResponse> clearCart(@PathVariable Long cartId) {
+    public ResponseEntity<ApiResponse> clearCart(
+        @Parameter(description = "Cart ID", required = true)
+        @PathVariable("cartId") Long cartId) {
         try {
             cartService.clearCart(cartId);
             return ResponseEntity.ok(new ApiResponse("Cart cleared successfully", null));
@@ -38,7 +43,7 @@ public class CartController {
     }
 
     @GetMapping("/{cartId}/cart/total-price")
-    public ResponseEntity<ApiResponse> getTotalAmount(@PathVariable Long cartId) {
+    public ResponseEntity<ApiResponse> getTotalAmount(@PathVariable("cartId") Long cartId) {
         try {
             return ResponseEntity.ok(new ApiResponse("Total amount fetched successfully", cartService.getTotalPrice(cartId)));
         } catch (ResourceNotFoundException e) {

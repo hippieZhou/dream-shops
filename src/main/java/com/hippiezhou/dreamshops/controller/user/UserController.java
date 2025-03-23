@@ -1,12 +1,13 @@
-package com.hippiezhou.dreamshops.controller;
+package com.hippiezhou.dreamshops.controller.user;
 
-import com.hippiezhou.dreamshops.dto.user.UserCreateRequest;
-import com.hippiezhou.dreamshops.dto.user.UserUpdateRequest;
+import com.hippiezhou.dreamshops.controller.user.request.UserCreateRequest;
+import com.hippiezhou.dreamshops.controller.user.request.UserUpdateRequest;
+import com.hippiezhou.dreamshops.dto.ApiResponse;
 import com.hippiezhou.dreamshops.exception.ResourceAlreadyExistsException;
 import com.hippiezhou.dreamshops.exception.ResourceNotFoundException;
-import com.hippiezhou.dreamshops.dto.ApiResponse;
 import com.hippiezhou.dreamshops.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -42,7 +43,9 @@ public class UserController {
             )
         }
     )
-    public ResponseEntity<ApiResponse> getUserId(@PathVariable Long userId) {
+    public ResponseEntity<ApiResponse> getUserId(
+        @Parameter(description = "User ID", required = true)
+        @PathVariable("userId") Long userId) {
         try {
             return ResponseEntity.ok(new ApiResponse("User found", userService.getUserById(userId)));
         } catch (ResourceNotFoundException e) {
@@ -98,7 +101,10 @@ public class UserController {
             )
         }
     )
-    public ResponseEntity<ApiResponse> updateUser(@PathVariable Long userId, @Valid @RequestBody UserUpdateRequest user) {
+    public ResponseEntity<ApiResponse> updateUser(
+        @Parameter(description = "User ID", required = true)
+        @PathVariable("userId") Long userId,
+        @Valid @RequestBody UserUpdateRequest user) {
         try {
             return ResponseEntity.ok(new ApiResponse("User updated", userService.updateUser(userId, user)));
         } catch (ResourceNotFoundException e) {
@@ -126,7 +132,9 @@ public class UserController {
             )
         }
     )
-    public ResponseEntity<ApiResponse> deleteUser(@PathVariable Long userId) {
+    public ResponseEntity<ApiResponse> deleteUser(
+        @Parameter(description = "User ID", required = true)
+        @PathVariable("userId") Long userId) {
         try {
             userService.deleteUser(userId);
             return ResponseEntity.ok(new ApiResponse("User deleted", null));

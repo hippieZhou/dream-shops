@@ -1,9 +1,9 @@
-package com.hippiezhou.dreamshops.controller;
+package com.hippiezhou.dreamshops.controller.category;
 
+import com.hippiezhou.dreamshops.dto.ApiResponse;
 import com.hippiezhou.dreamshops.exception.ResourceAlreadyExistsException;
 import com.hippiezhou.dreamshops.exception.ResourceNotFoundException;
 import com.hippiezhou.dreamshops.model.Category;
-import com.hippiezhou.dreamshops.dto.ApiResponse;
 import com.hippiezhou.dreamshops.service.CategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -37,7 +37,7 @@ public class CategoryController {
     }
 
     @GetMapping("category/{id}/category")
-    public ResponseEntity<ApiResponse> getCategoryById(@PathVariable Long id) {
+    public ResponseEntity<ApiResponse> getCategoryById(@PathVariable("id") Long id) {
         try {
             return ResponseEntity.ok(new ApiResponse("Category fetched successfully", categoryService.getCategoryById(id)));
         } catch (ResourceNotFoundException e) {
@@ -48,7 +48,7 @@ public class CategoryController {
     }
 
     @GetMapping("category/{name}/category")
-    public ResponseEntity<ApiResponse> getCategoryByName(@PathVariable String name) {
+    public ResponseEntity<ApiResponse> getCategoryByName(@PathVariable("name") String name) {
         try {
             return ResponseEntity.ok(new ApiResponse("Category fetched successfully", categoryService.getCategoryByName(name)));
         } catch (ResourceNotFoundException e) {
@@ -59,7 +59,7 @@ public class CategoryController {
     }
 
     @PutMapping("category/{id}/update")
-    public ResponseEntity<ApiResponse> updateCategory(@PathVariable Long id, @RequestBody Category category) {
+    public ResponseEntity<ApiResponse> updateCategory(@PathVariable("id") Long id, @RequestBody Category category) {
         try {
             return ResponseEntity.ok(new ApiResponse("Category updated successfully", categoryService.updateCategory(category, id)));
         } catch (ResourceNotFoundException e) {
@@ -70,7 +70,7 @@ public class CategoryController {
     }
 
     @DeleteMapping("category/{id}/delete")
-    public ResponseEntity<ApiResponse> deleteCategory(@PathVariable Long id) {
+    public ResponseEntity<ApiResponse> deleteCategory(@PathVariable("id") Long id) {
         try {
             categoryService.deleteCategoryById(id);
             return ResponseEntity.ok(new ApiResponse("Category deleted successfully", null));

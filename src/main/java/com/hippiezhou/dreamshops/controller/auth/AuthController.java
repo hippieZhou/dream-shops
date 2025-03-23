@@ -1,8 +1,8 @@
-package com.hippiezhou.dreamshops.controller;
+package com.hippiezhou.dreamshops.controller.auth;
 
 import com.hippiezhou.dreamshops.dto.ApiResponse;
-import com.hippiezhou.dreamshops.dto.auth.LoginRequest;
-import com.hippiezhou.dreamshops.dto.auth.LoginResponse;
+import com.hippiezhou.dreamshops.controller.auth.request.LoginRequest;
+import com.hippiezhou.dreamshops.controller.auth.response.LoginResponse;
 import com.hippiezhou.dreamshops.security.jwt.JwtUtils;
 import com.hippiezhou.dreamshops.security.user.ShopUserDetails;
 import io.swagger.v3.oas.annotations.Operation;

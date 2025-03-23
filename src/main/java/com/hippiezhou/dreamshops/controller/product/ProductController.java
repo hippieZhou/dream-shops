@@ -1,12 +1,12 @@
-package com.hippiezhou.dreamshops.controller;
+package com.hippiezhou.dreamshops.controller.product;
 
+import com.hippiezhou.dreamshops.controller.product.request.ProductAddRequest;
+import com.hippiezhou.dreamshops.controller.product.request.ProductUpdateRequest;
+import com.hippiezhou.dreamshops.dto.ApiResponse;
 import com.hippiezhou.dreamshops.dto.product.ProductDto;
-import com.hippiezhou.dreamshops.dto.product.ProductAddRequest;
-import com.hippiezhou.dreamshops.dto.product.ProductUpdateRequest;
 import com.hippiezhou.dreamshops.exception.ResourceAlreadyExistsException;
 import com.hippiezhou.dreamshops.exception.ResourceNotFoundException;
 import com.hippiezhou.dreamshops.model.Product;
-import com.hippiezhou.dreamshops.dto.ApiResponse;
 import com.hippiezhou.dreamshops.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -29,7 +29,8 @@ public class ProductController {
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/add")
-    public ResponseEntity<ApiResponse> addProduct(@RequestBody ProductAddRequest product) {
+    public ResponseEntity<ApiResponse> addProduct(
+        @RequestBody ProductAddRequest product) {
         try {
 
             Product newProduct = productService.addProduct(product);
@@ -43,7 +44,8 @@ public class ProductController {
     }
 
     @GetMapping("product/{productId}/product")
-    public ResponseEntity<ApiResponse> getProductById(@PathVariable Long productId) {
+    public ResponseEntity<ApiResponse> getProductById(
+        @PathVariable("productId") Long productId) {
         try {
             return ResponseEntity.ok(new ApiResponse("Product fetched successfully", productService.getProductById(productId)));
         } catch (ResourceNotFoundException e) {
@@ -55,7 +57,9 @@ public class ProductController {
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping("/product/{productId}/product")
-    public ResponseEntity<ApiResponse> updateProduct(@PathVariable Long productId, @RequestBody ProductUpdateRequest request) {
+    public ResponseEntity<ApiResponse> updateProduct(
+        @PathVariable("productId") Long productId,
+        @RequestBody ProductUpdateRequest request) {
         try {
             Product product = productService.getProductById(productId);
             if (product != null) {
@@ -71,7 +75,8 @@ public class ProductController {
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("/product/{productId}/product")
-    public ResponseEntity<ApiResponse> deleteProduct(@PathVariable Long productId) {
+    public ResponseEntity<ApiResponse> deleteProduct(
+        @PathVariable("productId") Long productId) {
         try {
             productService.deleteProductById(productId);
             return ResponseEntity.ok(new ApiResponse("Product deleted successfully", null));
@@ -83,7 +88,9 @@ public class ProductController {
     }
 
     @GetMapping("/products/by/brand-and-name")
-    public ResponseEntity<ApiResponse> getProductByBrandAndName(@RequestParam String brandName, @RequestParam String productName) {
+    public ResponseEntity<ApiResponse> getProductByBrandAndName(
+        @RequestParam("brandName") String brandName,
+        @RequestParam("productName") String productName) {
         try {
             List<Product> products = productService.getProductByBrandAndName(brandName, productName);
             if (products.isEmpty()) {
@@ -100,7 +107,7 @@ public class ProductController {
 
 
     @GetMapping("product/{name}/products")
-    public ResponseEntity<ApiResponse> getProductByName(@PathVariable String name) {
+    public ResponseEntity<ApiResponse> getProductByName(@PathVariable("name") String name) {
         try {
             List<Product> products = productService.getProductByName(name);
             if (products.isEmpty()) {
@@ -115,7 +122,7 @@ public class ProductController {
     }
 
     @GetMapping("/product/by-brand")
-    public ResponseEntity<ApiResponse> findProductByBrand(@RequestParam String brand) {
+    public ResponseEntity<ApiResponse> findProductByBrand(@RequestParam("brand") String brand) {
         try {
             List<Product> products = productService.getProductsByBrand(brand);
             if (products.isEmpty()) {
@@ -130,7 +137,7 @@ public class ProductController {
     }
 
     @GetMapping("/product/{category}/all/products")
-    public ResponseEntity<ApiResponse> findProductByCategory(@PathVariable String category) {
+    public ResponseEntity<ApiResponse> findProductByCategory(@PathVariable("category") String category) {
         try {
             List<Product> products = productService.getProductsByCategory(category);
             if (products.isEmpty()) {
@@ -145,7 +152,9 @@ public class ProductController {
     }
 
     @GetMapping("/product/count/by-brand/and-name")
-    public ResponseEntity<ApiResponse> countProductsByBrandAndName(@RequestParam String brand, @RequestParam String name) {
+    public ResponseEntity<ApiResponse> countProductsByBrandAndName(
+        @RequestParam("brand") String brand,
+        @RequestParam("name") String name) {
         try {
             var productCount = productService.countProductsByBrandAndName(brand, name);
             return ResponseEntity.ok(new ApiResponse("Product count!", productCount));

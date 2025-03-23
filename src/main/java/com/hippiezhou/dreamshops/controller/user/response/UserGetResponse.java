@@ -1,9 +1,9 @@
-package com.hippiezhou.dreamshops.dto.user;
+package com.hippiezhou.dreamshops.controller.user.response;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 
 @Schema(description = "User create request")
-public record UserCreateResponse(
+public record UserGetResponse(
     @Schema(
         requiredMode = Schema.RequiredMode.REQUIRED,
         description = "Unique identifier",

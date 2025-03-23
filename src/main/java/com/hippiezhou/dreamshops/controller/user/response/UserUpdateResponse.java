@@ -1,9 +1,10 @@
-package com.hippiezhou.dreamshops.dto.user;
+package com.hippiezhou.dreamshops.controller.user.response;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotBlank;
 
-@Schema(description = "User create request")
-public record UserGetResponse(
+@Schema(description = "User update request")
+public record UserUpdateResponse(
     @Schema(
         requiredMode = Schema.RequiredMode.REQUIRED,
         description = "Unique identifier",
@@ -13,15 +14,12 @@ public record UserGetResponse(
         requiredMode = Schema.RequiredMode.REQUIRED,
         description = "User first name",
         example = "John")
+    @NotBlank
     String firstName,
     @Schema(
         requiredMode = Schema.RequiredMode.REQUIRED,
         description = "User last name",
         example = "Doe")
-    String lastName,
-    @Schema(
-        requiredMode = Schema.RequiredMode.REQUIRED,
-        description = "User email",
-        example = "hello@example.com")
-    String email) {
+    @NotBlank
+    String lastName) {
 }

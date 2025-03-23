@@ -1,4 +1,4 @@
-package com.hippiezhou.dreamshops.dto.product;
+package com.hippiezhou.dreamshops.controller.product.request;
 
 import com.hippiezhou.dreamshops.model.Category;
 import lombok.Data;
