@@ -28,46 +28,12 @@ docker run -itd --name mysql-test -p 3306:3306 -e MYSQL_ROOT_PASSWORD=123456 mys
 
 </details>
 
-### 2.1 Project structure
-
-```bash
-dream-shops/
-├── src/
-│   ├── main/
-│   │   ├── java/
-│   │   │   └── com/
-│   │   │       └── hippiezhou/
-│   │   │           └── dreamshops/
-│   │   │               ├── config/
-│   │   │               ├── controller/
-│   │   │               ├── dto/
-│   │   │               ├── mapper/
-│   │   │               ├── service/
-│   │   │               │   └── impl/
-│   │   │               ├── repository/
-│   │   │               ├── model/
-│   │   │               ├── remote/
-│   │   │               │   └── impl/
-│   │   │               └── DreamShopsApplication.java
-│   │   └── resources/
-│   │       ├── application.yml
-│   │       └── static/
-│   └── test/
-│       └── java/
-│           └── com/
-│               └── hippiezhou/
-│                   └── dreamshops/
-├── .gitignore
-├── README.md
-└── pom.xml
-```
-
-### 2.2 Sequence Diagram
+### 2.1 Sequence Diagram
 
 ```mermaid
 %%{init: {"theme":"neutral"}}%%
 sequenceDiagram
-    actor  U as User
+    actor U as User
     participant C as Controller
     participant S as Service
     participant DB as Database
@@ -97,7 +63,7 @@ sequenceDiagram
 
 ```
 
-## Docs
+## 3. Docs
 
 - [Spring Boot, Spring Security, JWT Course – Shopping Cart Backend Java Project](https://www.youtube.com/watch?v=oGhc5Z-WJSw&ab_channel=freeCodeCamp.org)
 - [搭建第一个Spring Boot项目](https://javabetter.cn/springboot/initializr.html)
